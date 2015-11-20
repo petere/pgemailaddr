@@ -1,0 +1,39 @@
+\pset null _null_
+SET client_min_messages = warning;
+CREATE TABLE test (a serial, b emailaddr);
+INSERT INTO test (b)
+VALUES ('peter@eisentraut.org'),
+       ('pgsql-hackers@postgresql.org'),
+       ('pgsql-docs@postgresql.org'),
+       ('root@[127.0.0.1]');
+SELECT * FROM test ORDER BY a ASC;
+ a |              b               
+---+------------------------------
+ 1 | peter@eisentraut.org
+ 2 | pgsql-hackers@postgresql.org
+ 3 | pgsql-docs@postgresql.org
+ 4 | root@[127.0.0.1]
+(4 rows)
+
+SELECT * FROM test ORDER BY b ASC;
+ a |              b               
+---+------------------------------
+ 4 | root@[127.0.0.1]
+ 1 | peter@eisentraut.org
+ 3 | pgsql-docs@postgresql.org
+ 2 | pgsql-hackers@postgresql.org
+(4 rows)
+
+-- error cases
+SELECT emailaddr 'foo';
+ERROR:  invalid input syntax for type emailaddr: missing "@"
+LINE 1: SELECT emailaddr 'foo';
+                         ^
+SELECT emailaddr 'foo,,@bar.org';
+ERROR:  invalid input syntax for type emailaddr: invalid character ","
+LINE 1: SELECT emailaddr 'foo,,@bar.org';
+                         ^
+SELECT emailaddr 'foo@[123';
+ERROR:  invalid input syntax for type emailaddr: missing matching "]"
+LINE 1: SELECT emailaddr 'foo@[123';
+                         ^
