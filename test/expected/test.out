@@ -24,6 +24,24 @@ SELECT * FROM test ORDER BY b ASC;
  2 | pgsql-hackers@postgresql.org
 (4 rows)
 
+SELECT emailaddr_user(b) FROM test ORDER BY b ASC;
+ emailaddr_user 
+----------------
+ root
+ peter
+ pgsql-docs
+ pgsql-hackers
+(4 rows)
+
+SELECT emailaddr_host(b) FROM test ORDER BY b ASC;
+ emailaddr_host 
+----------------
+ [127.0.0.1]
+ eisentraut.org
+ postgresql.org
+ postgresql.org
+(4 rows)
+
 -- error cases
 SELECT emailaddr 'foo';
 ERROR:  invalid input syntax for type emailaddr: missing "@"

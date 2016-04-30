@@ -14,6 +14,10 @@ SELECT * FROM test ORDER BY a ASC;
 
 SELECT * FROM test ORDER BY b ASC;
 
+SELECT emailaddr_user(b) FROM test ORDER BY b ASC;
+
+SELECT emailaddr_host(b) FROM test ORDER BY b ASC;
+
 -- error cases
 SELECT emailaddr 'foo';
 SELECT emailaddr 'foo,,@bar.org';
