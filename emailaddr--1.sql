@@ -15,6 +15,18 @@ CREATE FUNCTION emailaddr_out(emailaddr) RETURNS cstring
     LANGUAGE C
     AS '$libdir/emailaddr';
 
+CREATE FUNCTION emailaddr_user(emailaddr) RETURNS cstring
+    IMMUTABLE
+    STRICT
+    LANGUAGE C
+    AS '$libdir/emailaddr';
+
+CREATE FUNCTION emailaddr_host(emailaddr) RETURNS cstring
+    IMMUTABLE
+    STRICT
+    LANGUAGE C
+    AS '$libdir/emailaddr';
+
 CREATE TYPE emailaddr (
     INTERNALLENGTH = -1,
     INPUT = emailaddr_in,

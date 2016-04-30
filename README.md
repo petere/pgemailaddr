@@ -44,6 +44,12 @@ production in [RFC 5322](https://www.rfc-editor.org/rfc/rfc5322.txt)
 (so it's of the type `foo@bar.com`, but not `"Some Name"
 <foo@bar.com>`).
 
+Helper functions are available for hosts and users, and can be used thus:
+
+```sql
+SELECT emailaddr_user(email) FROM accounts WHERE emailaddr_host(email) = 'eisentraut.org';
+```
+
 Request for feedback
 --------------------
 

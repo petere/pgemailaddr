@@ -147,6 +147,43 @@ emailaddr_out(PG_FUNCTION_ARGS)
 	PG_RETURN_CSTRING(result);
 }
 
+PG_FUNCTION_INFO_V1(emailaddr_user);
+Datum
+emailaddr_user(PG_FUNCTION_ARGS)
+{
+	emailaddr *arg = PG_GETARG_EMAILADDR_P(0);
+	char *result;
+	size_t result_len;
+	size_t local_len;
+
+	result_len = VARSIZE(arg) - offsetof(emailaddr, data) - arg->local_offset + 1;
+	result = palloc(result_len);
+
+	local_len = VARSIZE(arg) - offsetof(emailaddr, data) - arg->local_offset;
+	memcpy(result, arg->data + arg->local_offset, local_len);
+  result[result_len - 1] = '\0'; // artisinally terminated strings
+
+	PG_RETURN_CSTRING(result);
+}
+
+PG_FUNCTION_INFO_V1(emailaddr_host);
+Datum
+emailaddr_host(PG_FUNCTION_ARGS)
+{
+	emailaddr *arg = PG_GETARG_EMAILADDR_P(0);
+	char *result;
+	size_t result_len;
+	size_t local_len;
+
+	result_len = arg->local_offset + 1;
+	result = palloc(result_len);
+
+	memcpy(result, arg->data, arg->local_offset);
+  result[result_len - 1] = '\0'; // artisinally terminated strings
+
+	PG_RETURN_CSTRING(result);
+}
+
 static int
 strnncmp(const char *s1, size_t n1, const char *s2, size_t n2)
 {
