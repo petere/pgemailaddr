@@ -4,7 +4,7 @@ PKG_CONFIG = pkg-config
 EXTENSION = emailaddr
 MODULE_big = emailaddr
 OBJS = emailaddr.o
-DATA = emailaddr--0.sql
+DATA = emailaddr--1.sql
 
 REGRESS = init test
 REGRESS_OPTS = --inputdir=test
