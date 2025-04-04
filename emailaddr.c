@@ -5,6 +5,11 @@
 #include <varatt.h>
 #endif
 
+#ifdef PG_VERSION_NUM
+    #if PG_VERSION_NUM >= 160000
+        #include "varatt.h"
+    #endif
+#endif
 
 PG_MODULE_MAGIC;
 
